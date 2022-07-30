@@ -19,7 +19,7 @@ html{
     padding: 0;
 }
 body{
-    background: var(--gray);
+    background: var(--gray-light);
     font-family: 'Rubik', sans-serif;
     font-size: 1rem;
 }

@@ -1,9 +1,9 @@
-import Comment from "./comments/Comment";
+import Comments from "./comments/Comments";
 import '../assets/css/Main.css';
 function Main() {
     return ( 
         <main>
-            <Comment></Comment>
+            <Comments></Comments>
         </main>
      );
 }
