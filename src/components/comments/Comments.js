@@ -1,6 +1,8 @@
 import Comment from "../comments/Comment";
 import {default as PersonOne} from '../../assets/img/avatars/image-amyrobson.png';
 import {default as PersonTwo} from '../../assets/img/avatars/image-maxblagun.png';
+import {default as ReplyOne} from '../../assets/img/avatars/image-ramsesmiron.png';
+import {default as ReplyMe} from '../../assets/img/avatars/image-juliusomo.png';
 
 const commentMock = {
     "currentUser": {
@@ -36,7 +38,7 @@ const commentMock = {
             "score": 4,
             "replyingTo": "maxblagun",
             "user": {
-              "image": "./images/avatars/image-ramsesmiron.png",
+              "image": ReplyOne,
               "username": "ramsesmiron"
             }
           },
@@ -47,7 +49,7 @@ const commentMock = {
             "score": 2,
             "replyingTo": "ramsesmiron",
             "user": {
-              "image": "./images/avatars/image-juliusomo.png",
+              "image": ReplyMe,
               "username": "juliusomo"
             }
           }
@@ -58,6 +60,7 @@ const commentMock = {
 function Comments() {
     return ( 
         commentMock.comments.map(comment => <Comment {...comment}></Comment>)
+        
      );
 }
 
