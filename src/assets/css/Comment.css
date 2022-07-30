@@ -1,0 +1,11 @@
+.comment-container{
+    display: flex;
+    background: var(--white);
+    width: 100%;
+    min-height: 10.5rem;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+.comment-vote{
+    background: var(--gray);
+}
