@@ -1,11 +1,73 @@
+
+.comment-container,
+.author-details,
+.comment,
+.btns{
+    display: grid;
+}
+
 .comment-container{
-    display: flex;
+    grid-template-columns: auto auto;
+    gap: 1.5rem;
     background: var(--white);
     width: 100%;
     min-height: 10.5rem;
     border-radius: 0.5rem;
     padding: 1.5rem;
 }
+.comment-vote,
+.comment-author{
+    display: flex;
+}
 .comment-vote{
-    background: var(--gray);
+    flex-direction: column;
+    justify-content: space-between;
+    padding: .7rem;
+    background: var(--gray-light);
+    border-radius: 0.7rem;
+    height: 6.2rem;
+}
+.number-vote{
+    color: var(--blue);
+    font-weight: 500;
+}
+.btns{
+    grid-auto-flow: column;
+    gap: 1.4rem;
+}
+.btn{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.btn-reply span{
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--blue);
+    margin-inline-start: 0.5rem;
+}
+.comment-author{
+    justify-content: space-between;
+}
+.author-details{
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    gap: 1rem;
+}
+.img-author{
+    width: 2rem;
+}
+.name-author{
+    font-weight: 500;
+    color: var(--blue-dark);
+}
+.comment-description,
+.comment-age{
+    color:var(--blue-gray);
+}
+.comment{
+    gap: 0.9rem;
+}
+.comment-description{
+    line-height: 1.5rem;
 }
