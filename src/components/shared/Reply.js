@@ -16,8 +16,11 @@ function Reply({content,createdAt,score,user,replyingTo}) {
                     <div className="comment-author">
                         <div className="author-details">
                             <img src={user.image} className="img-author" alt="Author icon"></img>
-                            <p className="name-author">{user.username}</p>
-                            <span className="comment-age">{createdAt}</span>
+                            <div className="author-username">
+                                <p className="name-author">{user.username}</p>
+                                {user.username==="juliusomo" && <div className="tag-author">you</div>}
+                            </div>
+                                <span className="comment-age">{createdAt}</span>
                         </div>
                         <div className="btns">                        
                             {user.username==="juliusomo" && 

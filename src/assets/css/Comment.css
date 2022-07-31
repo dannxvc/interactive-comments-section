@@ -1,7 +1,8 @@
 .container,
 .author-details,
 .comment,
-.btns{
+.btns,
+.author-username{
     display: grid;
 }
 .container{
@@ -71,7 +72,7 @@
     justify-content: space-between;
 }
 .author-details{
-    grid-template-columns: auto auto auto;
+    grid-auto-flow: column;
     align-items: center;
     gap: 1rem;
 }
@@ -81,6 +82,21 @@
 .name-author{
     font-weight: 500;
     color: var(--blue-dark);
+}
+.author-username{
+    grid-auto-flow: column;
+    gap: 0.5rem;
+}
+.tag-author{
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    border-radius: 0.15rem;
+    padding: 0.1rem .42rem 0.185rem .42rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.04rem;
 }
 .comment-description,
 .comment-age{

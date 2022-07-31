@@ -38,7 +38,7 @@ function Comment({content,createdAt,score,user,replies}) {
                     </div> 
                 </div>
             </div>
-            {replies.map(reply => <Reply {...reply}>
+            {replies.map(reply => <Reply key={reply.id} {...reply}>
          
             </Reply>)}
         </section>

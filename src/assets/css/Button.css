@@ -10,6 +10,7 @@
     font-size: 0.97rem;
     cursor: pointer;
     transition: opacity .3s ease-in-out;
+    letter-spacing: 0.04rem;
 }
 .btn-blue:hover{
     opacity: 0.4;

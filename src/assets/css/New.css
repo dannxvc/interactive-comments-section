@@ -1,4 +1,4 @@
-.new-reply-container{
+.new-comment-container{
     grid-template-columns: 2.5rem 31.7rem 6.5rem;
     gap: 1rem;
     background: var(--white);
@@ -8,7 +8,7 @@
     padding: 1.55rem;
     margin-bottom: 1.25rem;
 }
-.new-reply-description{
+.new-comment-description{
     font-family: 'Rubik', sans-serif;
     border: 0.1rem solid var(--gray);
     color: var(--blue-dark);
@@ -20,10 +20,10 @@
     font-weight:400;
     resize: none;
 }
-.new-reply-description:focus{
+.new-comment-description:focus{
     outline: 0.1rem solid var(--blue-dark);
 }
-.nr-img-author{
+.nc-img-author{
     margin-top:0.2rem;
     width: 2.5rem;
 }

@@ -3,13 +3,13 @@ import '../../assets/css/New.css';
 import {default as ReplyMe} from '../../assets/img/avatars/image-juliusomo.png';
 import Button from '../shared/Button';
 
-function NewReply() {
+function NewComment() {
     return ( 
-        <form className="container new-reply-container">
-            <div className="new-reply-pic">
-                <img src={ReplyMe} className="nr-img-author" alt="Author icon"></img>
+        <form className="container new-comment-container">
+            <div className="new-comment-pic">
+                <img src={ReplyMe} className="nc-img-author" alt="Author icon"></img>
             </div>
-            <textarea className="new-reply-description" placeholder="Add a comment...">
+            <textarea className="new-comment-description" placeholder="Add a comment...">
                 {/* <p>Great work! I haven't got much to add beyond what's already been said, but i just wanted to say congrats! Your're done an excellent job on this!</p> */}
             </textarea>
             <Button>SEND</Button>
@@ -17,4 +17,4 @@ function NewReply() {
      );
 }
 
-export default NewReply;
+export default NewComment;

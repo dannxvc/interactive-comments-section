@@ -1,7 +1,7 @@
 import '../../assets/css/Button.css';
 function Button({children}) {
     return ( 
-        <button className="btn-blue">
+        <button type="submit" className="btn-blue">
         {children}
         </button> 
     );

@@ -59,7 +59,7 @@ const commentMock = {
   };
 function Comments() {
     return ( 
-        commentMock.comments.map(comment => <Comment {...comment}></Comment>)
+        commentMock.comments.map(comment => <Comment key={comment.id} {...comment}></Comment>)
         
      );
 }

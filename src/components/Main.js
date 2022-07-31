@@ -1,11 +1,11 @@
 import Comments from "./shared/Comments";
 import '../assets/css/Main.css';
-import NewReply from "./replies/NewReply";
+import NewComment from "./replies/NewComment";
 function Main() {
     return ( 
         <main>
             <Comments></Comments>
-            <NewReply></NewReply>
+            <NewComment></NewComment>
         </main>
      );
 }
