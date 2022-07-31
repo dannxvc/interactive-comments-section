@@ -1,0 +1,17 @@
+.btn-blue{
+    height: 3.1rem;
+    width: 6.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.6rem;
+    background: var(--blue);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.97rem;
+    cursor: pointer;
+    transition: opacity .3s ease-in-out;
+}
+.btn-blue:hover{
+    opacity: 0.4;
+    background: var(--blue);
+}

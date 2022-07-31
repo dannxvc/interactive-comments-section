@@ -1,4 +1,4 @@
-import Comment from "../comments/Comment";
+import Comment from "./Comment";
 import {default as PersonOne} from '../../assets/img/avatars/image-amyrobson.png';
 import {default as PersonTwo} from '../../assets/img/avatars/image-maxblagun.png';
 import {default as ReplyOne} from '../../assets/img/avatars/image-ramsesmiron.png';

@@ -1,0 +1,29 @@
+.new-reply-container{
+    grid-template-columns: 2.5rem 31.7rem 6.5rem;
+    gap: 1rem;
+    background: var(--white);
+    width: 100%;
+    min-height: 9.2rem;
+    border-radius: 0.5rem;
+    padding: 1.55rem;
+    margin-bottom: 1.25rem;
+}
+.new-reply-description{
+    font-family: 'Rubik', sans-serif;
+    border: 0.1rem solid var(--gray);
+    color: var(--blue-dark);
+    border-radius: .5rem;
+    padding: 0.7rem 1.4rem;
+    width: 31.7rem;
+    line-height: 1.5rem;
+    font-size: 1rem;
+    font-weight:400;
+    resize: none;
+}
+.new-reply-description:focus{
+    outline: 0.1rem solid var(--blue-dark);
+}
+.nr-img-author{
+    margin-top:0.2rem;
+    width: 2.5rem;
+}
