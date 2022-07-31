@@ -9,8 +9,9 @@ function NewReply() {
             <div className="new-reply-pic">
                 <img src={ReplyMe} className="nr-img-author" alt="Author icon"></img>
             </div>
-            <textarea className="new-reply-description" placeholder="Add a comment...">
-                {/* <p>Great work! I haven't got much to add beyond what's already been said, but i just wanted to say congrats! Your're done an excellent job on this!</p> */}
+            <textarea 
+                className="new-reply-description" 
+                placeholder="Add a comment...">
             </textarea>
             <Button>SEND</Button>
         </form>
