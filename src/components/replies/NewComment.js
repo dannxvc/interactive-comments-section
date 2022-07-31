@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css';
 import '../../assets/css/New.css';
 import {default as ReplyMe} from '../../assets/img/avatars/image-juliusomo.png';
+import { Context } from '../services/Memory';
 import Button from '../shared/Button';
 
 function NewComment() {
     const [form, setForm] = useState(
         {
-            // "id": 1,
             "content": "",
             "createdAt": "now",
             "score": 0,
@@ -18,17 +18,22 @@ function NewComment() {
             "replies": []
         },
     );
+    const [state, dispatch] = useContext(Context);
+
     const {content,createdAt,score,user,replies} = form;
 
     const onChange = (event, prop) => {
+        event.preventDefault();
         setForm(comment => ({ ...comment,[prop]:event.target.value}));
     }
+
 
     useEffect(() => {
     },[form]);
 
-    const createComment = async () => {
-        console.log(form);
+    const createComment = async (e) => {
+        e.preventDefault();
+        dispatch({type: 'createComment', comment: form});
     }
 
     return ( 
@@ -42,7 +47,9 @@ function NewComment() {
                 value={content}
                 onChange={e => onChange(e,'content')}>            
             </textarea>
-            <Button>SEND</Button>
+            <Button
+               
+            >SEND</Button>
         </form>
      );
 }

@@ -6,7 +6,7 @@
     display: grid;
 }
 .container{
-    grid-template-columns: auto auto;
+    grid-template-columns: 2.5rem auto;
     gap: 1.5rem;
     background: var(--white);
     width: 100%;
