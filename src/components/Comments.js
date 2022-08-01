@@ -1,5 +1,5 @@
 import Comment from "./Comment";import { useContext } from "react";
-import { Context } from "../services/Memory";
+import { Context } from "./services/Memory";
 
 function Comments() {
     const [state, dispatch] = useContext(Context);

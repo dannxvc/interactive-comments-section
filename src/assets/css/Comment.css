@@ -47,6 +47,9 @@
     color: var(--blue);
     font-weight: 500;
 }
+.btn-vote:hover .btn-icon{
+    --icon: var(--blue) ;
+}
 .btns{
     grid-auto-flow: column;
     gap: 1.4rem;
@@ -56,17 +59,22 @@
     background: transparent;
     cursor: pointer;
 }
-.btn-reply span{
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--blue);
-    margin-inline-start: 0.5rem;
-}
-.btn-delete span{
+.btn-reply-blue span,
+.btn-reply-red span{
     font-size: 1rem;
     font-weight: 700;
     color: var(--red);
     margin-inline-start: 0.5rem;
+}
+.btn-reply-blue span{
+    color: var(--blue);
+}
+.btn-reply-red span{
+    color: var(--red);
+}
+.btn-reply-blue:hover,
+.btn-reply-red:hover{
+    opacity: 0.4;
 }
 .comment-author{
     justify-content: space-between;

@@ -83,7 +83,6 @@ function reductor(state, action){
                     [id]: {id, ...action.comment}
                 }
             };
-            console.log(newState);
             return newState;
         };
     }
