@@ -55,6 +55,7 @@ const commentMock = {
           }
         ]
       },
+      
     ]
 };
 
@@ -83,8 +84,22 @@ function reductor(state, action){
                     [id]: {id, ...action.comment}
                 }
             };
+          console.log(newState);
+
             return newState;
         };
+        case 'deleteComment': {
+            const id= action.id;
+            const newOrder = state.order.filter(item => item !== id);
+            delete state.objects[id];
+            const newState = {
+                order:newOrder,
+                objects:state.objects
+            };
+            console.log(newState);
+            return newState;
+        };
+        
     }
 }
 const comments=reductor(initialState,{type: 'place',commentsGeneral:commentMock});

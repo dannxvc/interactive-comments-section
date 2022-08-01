@@ -3,7 +3,7 @@ import ButtonAction from './shared/ButtonAction';
 import ButtonVote from './shared/ButtonVote';
 import Reply from './Reply';
 
-function Comment({content,createdAt,score,user,replies}) {
+function Comment({id,content,createdAt,score,user,replies}) {
     return ( 
         <section className="main-container">
             <div className="container comment-container">
@@ -21,6 +21,7 @@ function Comment({content,createdAt,score,user,replies}) {
                                 <span className="comment-age">{createdAt}</span>
                         </div>
                         <ButtonAction
+                            id={id}
                             user={user}
                         />
                     </div>  

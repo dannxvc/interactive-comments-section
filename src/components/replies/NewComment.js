@@ -26,8 +26,6 @@ function NewComment() {
         event.preventDefault();
         setForm(comment => ({ ...comment,[prop]:event.target.value}));
     }
-
-
     useEffect(() => {
     },[form]);
 
