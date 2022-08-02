@@ -1,12 +1,12 @@
-import '../assets/css/Comment.css';
-import ButtonAction from './shared/ButtonAction';
-import ButtonVote from './shared/ButtonVote';
-import Reply from './Reply';
+import '../../assets/css/Comment.css';
+import ButtonAction from './ButtonAction';
+import ButtonVote from './ButtonVote';
 
-function Comment({id,content,createdAt,score,user,replies}) {
+function Comment({id,content,createdAt,score,user,replyingTo}) {
     return ( 
-        <section className="main-container">
-            <div className="container comment-container">
+        <div className={replyingTo && `reply-container`}>
+             {replyingTo &&<div className="reply-separator"></div>}
+            <div className="container">
                 <ButtonVote
                     score={score}
                 />
@@ -26,14 +26,14 @@ function Comment({id,content,createdAt,score,user,replies}) {
                         />
                     </div>  
                     <div className="comment-description">
-                        <p>{content}</p>
+                        <p>
+                            {replyingTo && <span className="user-replying-to">@{replyingTo}</span>} 
+                            {content}
+                        </p>
                     </div> 
                 </div>
             </div>
-            {replies.map(reply => <Reply key={reply.id} {...reply}>
-         
-            </Reply>)}
-        </section>
+        </div>
      );
 }
 

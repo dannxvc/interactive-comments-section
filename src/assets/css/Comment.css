@@ -2,7 +2,9 @@
 .author-details,
 .comment,
 .btns,
-.author-username{
+.author-username,
+.comment-container,
+.reply-container{
     display: grid;
 }
 .container{
@@ -23,7 +25,6 @@
     margin: 0;
 }
 .reply-container{
-    display: grid;
     grid-template-columns: 1rem auto;
 }
 .comment-vote,
