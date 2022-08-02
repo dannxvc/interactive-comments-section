@@ -11,6 +11,8 @@
     cursor: pointer;
     transition: opacity .3s ease-in-out;
     letter-spacing: 0.04rem;
+    position: absolute;
+    right: 1.55rem;
 }
 .btn-blue:hover{
     opacity: 0.4;

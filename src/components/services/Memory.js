@@ -6,7 +6,7 @@ import {default as ReplyMe} from '../../assets/img/avatars/image-juliusomo.png';
 
 const commentMock = {
     "currentUser": {
-      "image": "./images/avatars/image-juliusomo.png",
+      "image": ReplyMe,
       "username": "juliusomo"
     },
     "comments": [
@@ -62,6 +62,10 @@ const commentMock = {
 const initialState = {
     order:[],
     objects:{}
+}
+const initialStateReply = {
+    orderReply:[],
+    objectsReply:{}
 }
 
 function reductor(state, action){

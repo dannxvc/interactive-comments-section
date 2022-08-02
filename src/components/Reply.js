@@ -4,7 +4,11 @@ import ButtonVote from './shared/ButtonVote';
 
 function Reply({content,createdAt,score,user,replyingTo}) {
     return ( 
-        <div className="container reply-container">
+        <div className="reply-container">
+            <div className="reply-separator">
+
+            </div>
+            <div className="container">
                 <ButtonVote
                     score={score}
                 />
@@ -26,6 +30,8 @@ function Reply({content,createdAt,score,user,replyingTo}) {
                         <p><span className="user-replying-to">@{replyingTo}</span> {content}</p>
                     </div> 
                 </div>
+            </div>
+                
         </div>
      );
 }

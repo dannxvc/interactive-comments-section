@@ -46,7 +46,7 @@ function NewComment() {
                 onChange={e => onChange(e,'content')}>            
             </textarea>
             <Button
-               
+               className="btn-reply"
             >SEND</Button>
         </form>
      );

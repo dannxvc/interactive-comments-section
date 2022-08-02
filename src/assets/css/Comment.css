@@ -6,42 +6,40 @@
     display: grid;
 }
 .container{
-    grid-template-columns: 2.5rem auto;
-    gap: 1.5rem;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+    gap: 1rem;
     background: var(--white);
     width: 100%;
     min-height: 10.5rem;
     border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1.25rem;
-}
-.reply-container{
-    margin-bottom: 1.5rem;
-    margin-left: 5.5rem;
-    width: 40rem;
+    padding: 1.1rem;
+    margin-bottom: 1rem;
     position: relative;
 }
-.reply-container::before{
-    content: "";
-    position: absolute;
-    height: 115%;
-    width: 0.1rem;
-    background-color: var(--gray);
-    left: -3rem;
+.reply-separator{
+    background: var(--gray);
+    width: 0.135rem;
+    margin: 0;
+}
+.reply-container{
+    display: grid;
+    grid-template-columns: 1rem auto;
 }
 .comment-vote,
 .comment-author{
     display: flex;
 }
 .comment-vote{
-    flex-direction: column;
+    grid-row-start: 2;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: .7rem;
     background: var(--gray-light);
     border-radius: 0.7rem;
-    height: 6.2rem;
-    width: 2.5rem;
+    height: 2.5rem;
+    width: 4.5rem;
 }
 .number-vote{
     color: var(--blue);
@@ -52,7 +50,10 @@
 }
 .btns{
     grid-auto-flow: column;
-    gap: 1.4rem;
+    gap: .5rem;
+    position: absolute;
+    bottom: 1.7rem;
+    right: 1.1rem;
 }
 .btn{
     border: none;
@@ -61,7 +62,7 @@
 }
 .btn-reply-blue span,
 .btn-reply-red span{
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--red);
     margin-inline-start: 0.5rem;
@@ -119,4 +120,42 @@
 .user-replying-to{
     color: var(--blue);
     font-weight: 500;
+}
+@media only screen and (min-width:23rem){
+    .btn-reply-blue span,
+    .btn-reply-red span{
+        font-size: 1rem;
+    }
+    .btns{
+        gap: 1rem;
+    }
+    .comment-vote{
+        width: 6rem;
+    }
+}
+@media only screen and (min-width:51rem){
+    .container{
+        grid-template-columns: 2.5rem auto;
+        gap: 1.5rem;
+        grid-template-rows: auto ;
+        min-height: 10.5rem;
+        padding: 1.5rem;
+        margin-bottom: 1.25rem;
+    } 
+    .comment-vote{
+        flex-direction: column;
+        height: 6.2rem;
+        width: 2.5rem;
+        grid-row-start: 1;
+    }
+    .btns{
+        gap: 1.4rem;
+        position: initial;
+    }
+    .reply-container{
+        grid-template-columns: 5.3rem auto;
+    }
+    .reply-separator{
+        margin: 0 auto;
+    }
 }
