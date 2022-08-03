@@ -43,21 +43,23 @@ function Comment({id,content,createdAt,score,user,replyingTo}) {
                     </div> 
                 </div>
             </div>
-            {!replyingTo &&
-            <form className={`container new-comment-container  ${isVisible==="visible"? "":"new-comment-invisible"}`}>
-                <div className="new-comment-pic">
-                    <img src={currentUserInfo.image} className="nc-img-author" alt="Author icon"></img>
-                </div>
-                <textarea 
-                    className="new-comment-description" 
-                    placeholder="Add a comment..." 
-                   >            
-                </textarea>
-                <Button
-                className="btn-reply"
-                >REPLY</Button>
-            </form>}
-        </div>
+                {replyingTo &&<div className="reply-separator"></div>}
+                <form className={`container new-comment-container ${replyingTo && "new-reply-form"} ${isVisible==="visible"? "":"new-comment-invisible"}`}>
+                    <div className="new-comment-pic">
+                        <img src={currentUserInfo.image} className="nc-img-author" alt="Author icon"></img>
+                    </div>
+                    <textarea 
+                        className="new-comment-description" 
+                        placeholder="Add a comment..." 
+                        value={`@${user.username},`}
+                    >  
+                    <span className="user-replying-to">@ </span>
+                    </textarea>
+                    <Button
+                    className="btn-reply"
+                    >REPLY</Button>
+                </form>
+            </div>
      );
 }
 

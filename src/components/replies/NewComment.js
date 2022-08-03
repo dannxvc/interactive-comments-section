@@ -43,7 +43,9 @@ function NewComment() {
                 className="new-comment-description" 
                 placeholder="Add a comment..." 
                 value={content}
-                onChange={e => onChange(e,'content')}>            
+                onChange={e => onChange(e,'content')}
+                required
+            >            
             </textarea>
             <Button
                className="btn-reply"

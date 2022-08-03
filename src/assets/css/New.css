@@ -50,6 +50,10 @@
         grid-template-columns: 2.5rem 31.7rem 6.5rem;
         grid-template-rows: auto;
     }
+    .new-reply-form{
+        grid-template-columns: 2.5rem 25.7rem 6.5rem;
+        grid-template-rows: auto;
+    }
     .new-comment-pic{
         grid-row-start: 1;
         grid-row-end: 2;
