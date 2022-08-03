@@ -1,8 +1,17 @@
+import { useState } from 'react';
 import '../../assets/css/Comment.css';
+import Button from './Button';
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
+import { commentData } from "./CommentData";
+
 
 function Comment({id,content,createdAt,score,user,replyingTo}) {
+    
+    const currentUserInfo = commentData.currentUser;
+
+    const [isVisible,setVisible]= useState("notVisible");
+    
     return ( 
         <div className={replyingTo && `reply-container`}>
              {replyingTo &&<div className="reply-separator"></div>}
@@ -23,6 +32,7 @@ function Comment({id,content,createdAt,score,user,replyingTo}) {
                         <ButtonAction
                             id={id}
                             user={user}
+                            onClickReply={()=> isVisible === "notVisible"?setVisible("visible"): setVisible("notVisible")}
                         />
                     </div>  
                     <div className="comment-description">
@@ -33,6 +43,20 @@ function Comment({id,content,createdAt,score,user,replyingTo}) {
                     </div> 
                 </div>
             </div>
+            {!replyingTo &&
+            <form className={`container new-comment-container  ${isVisible==="visible"? "":"new-comment-invisible"}`}>
+                <div className="new-comment-pic">
+                    <img src={currentUserInfo.image} className="nc-img-author" alt="Author icon"></img>
+                </div>
+                <textarea 
+                    className="new-comment-description" 
+                    placeholder="Add a comment..." 
+                   >            
+                </textarea>
+                <Button
+                className="btn-reply"
+                >REPLY</Button>
+            </form>}
         </div>
      );
 }

@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import '../assets/css/Comment.css';
+import { Context } from './services/Memory';
 import Comment from "./shared/Comment";
 
 function Container({id,content,createdAt,score,user,replies}) {
+    const [state, dispatch] = useContext(Context);
     return ( 
+        
         <section className="main-container">
             <Comment
                 score={score}
