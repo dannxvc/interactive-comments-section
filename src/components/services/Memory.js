@@ -40,20 +40,9 @@ function reductor(state, action){
                 objects:state.objects
             };
             return newState;
-        };
-        case 'createComment': {
-            const id= String(Math.random());
-            const newState = {
-                order:[...state.order, id],
-                objects:{
-                    ...state.objects.replies,
-                    [id]: {id, ...action.comment.replies}
-                }
-            };
-            console.log(newState);
-            return newState;
-        };
-        
+        }; 
+        default:
+        throw new Error();
     }
 }
 const comments=reductor(initialState,{type: 'place',commentsGeneral:commentData});

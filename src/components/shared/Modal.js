@@ -4,7 +4,7 @@ import '../../assets/css/Modal.css';
 
 function Modal({classModal,id,handleDeleteClick}) {
 
-    const [state, dispatch] = useContext(Context);
+    const [, dispatch] = useContext(Context);
     const deleteComment = (e) => {
         e.preventDefault();
         dispatch({type: 'deleteComment', id:id});
