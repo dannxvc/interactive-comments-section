@@ -40,7 +40,21 @@ function reductor(state, action){
                 objects:state.objects
             };
             return newState;
-        }; 
+        };  
+        case 'createReply': {
+            // const id = action.comment.id;
+            const id= String(Math.random());
+            const newState = {
+                order:[...state.order, id],
+                objects:{
+                    ...state.objects,
+                    [id]: {id, ...action.comment}
+                }
+            };
+          console.log(newState);
+
+            return newState;
+        };
         default:
         throw new Error();
     }

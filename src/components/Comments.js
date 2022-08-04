@@ -1,4 +1,4 @@
-import Container from "./Container";
+import Comment from "./shared/Comment";
 import '../assets/css/Main.css';
 import { Context } from './services/Memory';
 import NewComment from "./shared/NewComment";
@@ -41,7 +41,7 @@ function Main() {
     
     return ( 
         <main>
-            {state.order.map(id => <Container key={id} {...state.objects[id]}></Container>)}
+            {state.order.map(id => <Comment key={id} {...state.objects[id]}></Comment>)}
             <NewComment
                 handleSubmit={createComment}
                 valueText={content}
