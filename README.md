@@ -3,6 +3,7 @@
 <p align="center">Live Site <a href="https://danna.pages.dev/">Here</a>.</p> -->
 
 1. Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+2. This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9).
 
 
 ## 👾 Set Up
