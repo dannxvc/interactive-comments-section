@@ -1,14 +1,49 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css';
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
 import NewComment from '../shared/NewComment';
 import { commentData } from "./CommentData";
+import { Context } from '../../services/Memory';
+import Button from './Button';
 
 
 function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) {
     const currentUserInfo = commentData.currentUser;
-    const [isVisible,setVisible]= useState("notVisible");
+    const [isReplying,setIsReplying]= useState(false);
+    const [isEditing,setIsEditing]= useState(false);
+    const [form, setForm] = useState(
+        {
+            "content": "",
+            "createdAt": "Now",
+            "score": 0,
+            "replyingTo": "",
+            "user": {
+              "image": currentUserInfo.image,
+              "username": currentUserInfo.username
+            },
+            "replies": []
+        },
+    );
+    const [state, dispatch] = useContext(Context);
+
+    const createReply = async (e) => {
+        e.preventDefault();
+        dispatch({type: 'createReply', parentId: parentId});
+    }
+    const updateComment = async (e) => {
+        e.preventDefault();
+        dispatch({type: 'updateComment', comment: form});
+        setIsEditing(false);
+    }
+    const onChange = (event, prop) => {
+        event.preventDefault();
+        id &&  setForm(state => ({ ...state,[prop]:event.target.value}));
+    }
+    useEffect(() => {
+        isEditing? setForm(state.objects[id]):setForm(form);
+    },[isEditing,id,state.objects]);
+
     return ( 
         <section className="main-container">
             <div className={replyingTo && `reply-container`}>
@@ -30,25 +65,52 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
                             <ButtonAction
                                 id={id}
                                 user={user}
-                                onClickReply={()=> isVisible === "notVisible"?setVisible("visible"): setVisible("notVisible")}
+                                onClickReply={()=> isReplying === false?setIsReplying(true): setIsReplying(false)}
+                                onClickEdit={()=> isEditing === false?setIsEditing(true): setIsEditing(false)}
                             />
                         </div>  
-                        <div className="comment-description">
-                            <p>
-                                {replyingTo && <span className="user-replying-to">@{replyingTo} {parentId} </span>} 
-                                {content}
-                            </p>
-                        </div> 
+                        {isEditing ? ( 
+                            <form className='form-update' onSubmit={updateComment}>
+                                <textarea 
+                                className="new-comment-description"
+                                value={`${!replyingTo ?'': '@'+replyingTo+' '}${form.content}`}
+                                onChange={e => onChange(e,'content')}
+                                >
+                                </textarea>
+                                <Button
+                                className="btn-update"
+                                >
+                                    UPDATE
+                                </Button>
+                            </form> 
+                            )
+                           : (
+                            <div className="comment-description">
+                                <p>
+                                    {replyingTo && <span className="user-replying-to">@{replyingTo} {parentId} </span>} 
+                                    {content}
+                                </p>
+                            </div> 
+                            )
+                        }
+                        
                     </div>
                 </div>
-                    {replyingTo &&<div className="reply-separator"></div>}
-                    <NewComment
-                        handleVisible={isVisible==="visible"? "":"new-comment-invisible"}
+                    {isReplying ? 
+                     (
+                    <>
+                        {replyingTo &&<div className="reply-separator"></div>}
+                        <NewComment
                         handleReply={replyingTo && "new-reply-form"}
-                        // handleChange={e => onChange(e,'content')}
-                        // handleSubmit={createReply}
-                        // valueText={form.content}
-                    />
+                        handleChange={e => onChange(e,'content')}
+                        handleSubmit={createReply}
+                        valueText={form.content}
+                        />
+                     </>
+                     ):
+                    (<></>)
+                    }
+                   
             </div>
             {replies.map(reply => <Comment key={reply.id} {...reply} parentId={id}>
          

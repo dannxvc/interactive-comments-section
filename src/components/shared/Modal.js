@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
-import { Context } from "../services/Memory";
+import { Context } from "../../services/Memory";
 import '../../assets/css/Modal.css';
 
-function Modal({classModal,id,handleDeleteClick}) {
+function Modal({classModal,id,handleCancelClick}) {
 
     const [, dispatch] = useContext(Context);
     const deleteComment = (e) => {
@@ -21,7 +21,7 @@ function Modal({classModal,id,handleDeleteClick}) {
                 </h2>
                 <p className="modal-description">Are you sure you want to delete this comment? This will remove the comment and can't be undone.</p>
                 <div className="modal-btns">
-                    <button className="btn-modal btn-gray" onClick={handleDeleteClick}>NO, CANCEL</button>
+                    <button className="btn-modal btn-gray" onClick={handleCancelClick}>NO, CANCEL</button>
                     <button className="btn-modal btn-red" onClick={deleteComment}>YES, DELETE</button>
                 </div>
             </div>

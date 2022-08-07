@@ -17,3 +17,12 @@
 .btn-blue:hover{
     opacity: 0.4;
 }
+.form-update{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+}
+.btn-update{
+    position: initial;
+    margin-top: 1rem;
+}

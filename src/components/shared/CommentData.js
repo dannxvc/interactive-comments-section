@@ -1,13 +1,31 @@
 
-import {default as PersonOne} from '../../assets/img/avatars/image-amyrobson.png';
-import {default as PersonTwo} from '../../assets/img/avatars/image-maxblagun.png';
-import {default as ReplyOne} from '../../assets/img/avatars/image-ramsesmiron.png';
-import {default as ReplyMe} from '../../assets/img/avatars/image-juliusomo.png';
+import {default as PersonOne} from '../../assets/img/avatars/image-juliusomo.png';
+import {default as PersonTwo} from '../../assets/img/avatars/image-amyrobson.png';
+import {default as PersonThree} from '../../assets/img/avatars/image-maxblagun.png';
+import {default as PersonFour} from '../../assets/img/avatars/image-ramsesmiron.png';
 
+const currentAvatar = {
+  1:{
+    "avatar":PersonOne,
+    "username": "juliusomo"
+  },
+  2:{
+    "avatar":PersonTwo,
+    "username": "amyrobson"
+  },
+  3:{
+    "avatar":PersonThree,
+    "username": "maxblagun"
+  },
+  4:{
+    "avatar":PersonFour,
+    "username": "ramsesmiron"
+  }
+}
 export const commentData = {
     "currentUser": {
-      "image": ReplyMe,
-      "username": "juliusomo"
+      "image": currentAvatar[1].avatar,
+      "username": currentAvatar[1].username,
     },
     "comments": [
       {
@@ -16,7 +34,7 @@ export const commentData = {
         "createdAt": "1 month ago",
         "score": 12,
         "user": {
-          "image": PersonOne,
+          "image": PersonTwo,
           "username": "amyrobson"
         },
         "replies": [
@@ -27,7 +45,7 @@ export const commentData = {
             "score": 4,
             "replyingTo": "maxblagun",
             "user": {
-              "image": ReplyOne,
+              "image": PersonFour,
               "username": "ramsesmiron"
             },
             "replies": [],
@@ -40,7 +58,7 @@ export const commentData = {
         "createdAt": "2 weeks ago",
         "score": 5,
         "user": {
-          "image": PersonTwo,
+          "image": PersonThree,
           "username": "maxblagun"
         },
         "replies": [
@@ -51,7 +69,7 @@ export const commentData = {
             "score": 4,
             "replyingTo": "maxblagun",
             "user": {
-              "image": ReplyOne,
+              "image": PersonFour,
               "username": "ramsesmiron"
             },
             "replies": [],
@@ -63,7 +81,7 @@ export const commentData = {
             "score": 2,
             "replyingTo": "ramsesmiron",
             "user": {
-              "image": ReplyMe,
+              "image": PersonOne,
               "username": "juliusomo"
             },
             "replies": [],

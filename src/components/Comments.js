@@ -1,6 +1,6 @@
 import Comment from "./shared/Comment";
 import '../assets/css/Main.css';
-import { Context } from './services/Memory';
+import { Context } from '../services/Memory';
 import NewComment from "./shared/NewComment";
 import { useContext, useEffect, useState } from 'react';
 import { commentData } from "./shared/CommentData";
@@ -29,14 +29,15 @@ function Main() {
     const onChange = (event, prop) => {
         event.preventDefault();
         setForm(comment => ({ ...comment,[prop]:event.target.value}));
+
     }
     useEffect(() => {
     },[form]);
 
     const createComment = async (e) => {
         e.preventDefault();
-        
         dispatch({type: 'createComment', comment: form});
+        setForm(comment => ({ ...comment,[content]:""}));
     }
     
     return ( 

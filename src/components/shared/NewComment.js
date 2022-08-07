@@ -3,11 +3,11 @@ import '../../assets/css/New.css';
 import { commentData } from "./CommentData";
 import Button from '../shared/Button';
 
-function NewComment({handleSubmit, handleReply,handleVisible,valueText,handleChange}) {
+function NewComment({handleSubmit, handleReply,valueText,handleChange}) {
 
     const currentUserInfo = commentData.currentUser;
     return ( 
-        <form className={`container new-comment-container ${handleVisible} ${handleReply}`}
+        <form className={`container new-comment-container ${handleReply}`}
         onSubmit={handleSubmit}
         
         >

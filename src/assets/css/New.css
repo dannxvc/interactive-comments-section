@@ -14,9 +14,6 @@
     grid-row-start: 2;
     grid-row-end: 3;
 }
-.new-comment-invisible{
-    display: none;
-}
 .new-comment-description{
     grid-row-start: 1;
     grid-row-end: 2;

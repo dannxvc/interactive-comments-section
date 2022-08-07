@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import { commentData } from "../shared/CommentData";
+import { commentData } from "../components/shared/CommentData";
 
 const initialState = {
     order:[],
@@ -41,17 +41,14 @@ function reductor(state, action){
             };
             return newState;
         };  
-        case 'createReply': {
-            // const id = action.comment.id;
-            const id= String(Math.random());
-            const newState = {
-                order:[...state.order, id],
-                objects:{
-                    ...state.objects,
-                    [id]: {id, ...action.comment}
-                }
+        case 'updateComment':{
+            const id = action.comment.id;
+            state.objects[id] = {
+                    ...state.objects[id],
+                    ...action.comment
             };
-          console.log(newState);
+            const newState = {...state};
+            console.log(newState);
 
             return newState;
         };
