@@ -13,8 +13,6 @@ function reductor(state, action){
                 order:commentsGeneral.comments.map((comment) => comment.id),
                 objects:commentsGeneral.comments.reduce((object, comment)=>({...object, [comment.id]:comment}),{})
             };
-          console.log(newState);
-
             return newState;
         };
         case 'createComment': {
@@ -43,12 +41,54 @@ function reductor(state, action){
         };  
         case 'updateComment':{
             const id = action.comment.id;
+            // const parentId = action.parentId;
             state.objects[id] = {
                     ...state.objects[id],
                     ...action.comment
             };
             const newState = {...state};
             console.log(newState);
+
+            return newState;
+        };
+        // case 'updateReply':{
+        //     const id = action.parentId;
+        //     const reply = ;
+        //     state.objects[id] = {
+        //             ...state.objects[id],
+        //             ...action.comment
+        //     };
+        //     const newState = {...state};
+        //     console.log(newState);
+
+        //     return newState;
+        // };
+        case 'createReply': {
+            const commentId = action.commentId;
+            const parentId= action.parentId;
+            const parentReplies=action.parentReplies;
+            const id = String(Math.random());
+            // const newOrder = state.order.filter(item => item !== parentId);
+            // let newReplies=action.parentReplies.filter(item => item !== parentReplies);
+            console.log(parentId);
+            // console.log(newReplies);
+           if(parentId===undefined){
+            state.objects[commentId][parentReplies]= {
+                ...state.objects[id],
+                [parentReplies]:[parentReplies,{id,...action.comment}]
+            }; 
+           } else{
+               state.objects[parentId][parentReplies]= {
+                ...state.objects[id],
+                [parentReplies]:[parentReplies,{id,...action.comment}]
+            }; 
+           }
+            
+            const newState = {
+                ...state
+            };
+
+           console.log(newState);
 
             return newState;
         };

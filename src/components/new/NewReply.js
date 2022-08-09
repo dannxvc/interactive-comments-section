@@ -1,9 +1,9 @@
 import '../../assets/css/Comment.css';
 import '../../assets/css/New.css';
-import { commentData } from "./CommentData";
+import { commentData } from "../shared/CommentData";
 import Button from '../shared/Button';
 
-function NewComment({handleSubmit, handleReply,valueText,handleChange}) {
+function NewReply({handleSubmit, handleReply,valueText,handleChange}) {
 
     const currentUserInfo = commentData.currentUser;
     return ( 
@@ -29,4 +29,4 @@ function NewComment({handleSubmit, handleReply,valueText,handleChange}) {
      );
 }
 
-export default NewComment;
+export default NewReply;

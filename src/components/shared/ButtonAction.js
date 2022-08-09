@@ -2,11 +2,10 @@ import {  useState } from "react";
 import { commentData } from "./CommentData";
 import Modal from "./Modal";
 
-function ButtonAction({user,id,onClickReply,onClickEdit}) {
+function ButtonAction({user,id,onClickReply,onClickEdit,parentReplies}) {
 
     const[modalIsVisible,setModalVisible] = useState(false);
     const handleDeleteClick = () => modalIsVisible === false?setModalVisible(true):setModalVisible(false);
-    const [isEditing,setIsEditing]= useState(false);
     const currentUserInfo = commentData.currentUser;
     return ( 
         <div className="btns">                        
@@ -26,7 +25,7 @@ function ButtonAction({user,id,onClickReply,onClickEdit}) {
                     {onClickEdit&&<span>Edit</span>}
                 </button>
             }
-            {user.username!==currentUserInfo.username && 
+            {parentReplies&&user.username!==currentUserInfo.username && 
                 <button 
                     className="btn btn-reply-blue"
                     onClick={onClickReply}

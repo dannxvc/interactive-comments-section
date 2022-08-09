@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css';
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
-import NewComment from '../shared/NewComment';
+import NewReply from '../new/NewReply';
 import { commentData } from "./CommentData";
 import { Context } from '../../services/Memory';
 import Button from './Button';
@@ -17,32 +17,45 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
             "content": "",
             "createdAt": "Now",
             "score": 0,
-            "replyingTo": "",
+            "replyingTo": user.username,
             "user": {
               "image": currentUserInfo.image,
               "username": currentUserInfo.username
             },
             "replies": []
-        },
+        }
     );
     const [state, dispatch] = useContext(Context);
 
     const createReply = async (e) => {
         e.preventDefault();
-        dispatch({type: 'createReply', parentId: parentId});
+        dispatch({type: 'createReply', comment:form,commentId:id, parentId:parentId,parentReplies:replies});
+        setIsReplying(false);
     }
-    const updateComment = async (e) => {
+    const  updateComment= async (e) => {
         e.preventDefault();
-        dispatch({type: 'updateComment', comment: form});
+        dispatch({type: 'updateComment', comment: form, parentId: id});
         setIsEditing(false);
     }
+    // const updateReply = async (e) => {
+    //     e.preventDefault();
+    //     dispatch({type: 'updateReply', comment: form, parentId: id});
+    //     setIsEditing(false);
+    // }
     const onChange = (event, prop) => {
         event.preventDefault();
-        id &&  setForm(state => ({ ...state,[prop]:event.target.value}));
+        id && setForm(state => ({ ...state,[prop]:event.target.value}));
     }
     useEffect(() => {
-        isEditing? setForm(state.objects[id]):setForm(form);
-    },[isEditing,id,state.objects]);
+        if(isEditing){
+            parentId===undefined?
+            setForm(state.objects[id]):
+            setForm({content})
+        }else{
+            setForm(form)
+        }
+
+    },[isEditing,id,state.objects,content,parentId]);
 
     return ( 
         <section className="main-container">
@@ -65,6 +78,7 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
                             <ButtonAction
                                 id={id}
                                 user={user}
+                                parentReplies={replies}
                                 onClickReply={()=> isReplying === false?setIsReplying(true): setIsReplying(false)}
                                 onClickEdit={()=> isEditing === false?setIsEditing(true): setIsEditing(false)}
                             />
@@ -73,7 +87,8 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
                             <form className='form-update' onSubmit={updateComment}>
                                 <textarea 
                                 className="new-comment-description"
-                                value={`${!replyingTo ?'': '@'+replyingTo+' '}${form.content}`}
+                                // value={`${!replyingTo ?'': '@'+replyingTo+' '}${form.content}`}
+                                value={form.content}
                                 onChange={e => onChange(e,'content')}
                                 >
                                 </textarea>
@@ -87,7 +102,7 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
                            : (
                             <div className="comment-description">
                                 <p>
-                                    {replyingTo && <span className="user-replying-to">@{replyingTo} {parentId} </span>} 
+                                    {replyingTo && <span className="user-replying-to">@{replyingTo} </span>} 
                                     {content}
                                 </p>
                             </div> 
@@ -100,11 +115,11 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
                      (
                     <>
                         {replyingTo &&<div className="reply-separator"></div>}
-                        <NewComment
-                        handleReply={replyingTo && "new-reply-form"}
-                        handleChange={e => onChange(e,'content')}
-                        handleSubmit={createReply}
-                        valueText={form.content}
+                        <NewReply
+                            handleReply={replyingTo && "new-reply-form"}
+                            handleChange={e => onChange(e,'content')}
+                            handleSubmit={createReply}
+                            valueText={form.content}
                         />
                      </>
                      ):
@@ -112,7 +127,7 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo,parentId}) 
                     }
                    
             </div>
-            {replies.map(reply => <Comment key={reply.id} {...reply} parentId={id}>
+            {replies&&replies.map(reply => <Comment key={reply.id} {...reply} parentId={id}>
          
          </Comment>)}
         </section>
