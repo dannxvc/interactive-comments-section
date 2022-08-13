@@ -1,15 +1,14 @@
 import { useContext, useState } from 'react';
-import '../../assets/css/Comment.css';
-import ButtonAction from './ButtonAction';
-import ButtonVote from './ButtonVote';
+import '../../assets/css/Comment.css'
+import ButtonAction from '../shared/ButtonAction';
+import ButtonVote from '../shared/ButtonVote';
 import NewReply from '../new/NewReply';
-import { commentData } from "./CommentData";
+import { commentData } from "../shared/CommentData";
 import { Context } from '../../services/Memory';
-import Button from './Button';
-import Reply from '../Reply';
+import Button from '../shared/Button';
 
-
-function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
+const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId})=>{
+    
     const currentUserInfo = commentData.currentUser;
     const [isReplying,setIsReplying]= useState(false);
     const [isEditing,setIsEditing]= useState(false);
@@ -20,15 +19,15 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
             "score": 0,
             "replyingTo": user.username,
             "user": {
-              "image": currentUserInfo.image,
-              "username": currentUserInfo.username
+                "image": currentUserInfo.image,
+                "username": currentUserInfo.username
             },
             "replies": []
         }
     );
     const [state, dispatch] = useContext(Context);
-
-
+    
+    
     const  updateComment= async (e) => {
         e.preventDefault();
         dispatch({type: 'updateComment', comment: form, parentId: id});
@@ -57,12 +56,10 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
 
     return ( 
         <section className="main-container">
-            <div className={replyingTo && `reply-container`}>
-                {replyingTo &&<div className="reply-separator"></div>}
+            <div className="reply-container">
+                <div className="reply-separator"></div>
                 <div className="container">
-                    <ButtonVote
-                        score={score}
-                    />
+                <ButtonVote score={score} />
                     <div className="comment">
                         <div className="comment-author">
                             <div className="author-details">
@@ -90,17 +87,13 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                                 onChange={e => onChange(e,'content')}
                                 >
                                 </textarea>
-                                <Button
-                                className="btn-update"
-                                >
-                                    UPDATE
-                                </Button>
+
                             </form> 
                             )
-                           : (
+                            : (
                             <div className="comment-description">
                                 <p>
-                                    {replyingTo && <span className="user-replying-to">@{replyingTo} </span>} 
+                                    <span className="user-replying-to">@{replyingTo} </span>
                                     {content}
                                 </p>
                             </div> 
@@ -110,29 +103,27 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                     </div>
                 </div>
                     {isReplying ? 
-                     (
+                        (
                     <>
-                        {replyingTo &&<div className="reply-separator">
-                            
-                            </div>}
-                        <NewReply user={user.username} id={id} replyingTo={replyingTo}
+                        <div className="reply-separator" style={{"marginLeft":"10px"}}></div>
+                        <NewReply user={user.username} id={id}  replyingTo={replyingTo}
                             handleReply={replyingTo && "new-reply-form"}
                             handleChange={e => onChange(e,'content')}
                             valueText={form.content}
                         />
-                     </>
-                     ):
-                    (<></>)
+                        </>
+                        ):
+                    null
                     }
-                   
+                    
             </div>
             {replies&&replies.map(reply => 
             
-                <Reply key={reply.id} id={reply.id} {...reply} parentId={id} />
-            
-            )}
+            <Reply key={reply.id} id={reply.id} {...reply} parentId={id} />
+        
+        )}
         </section>
-     );
+    );
 }
 
-export default Comment;
+export default Reply
