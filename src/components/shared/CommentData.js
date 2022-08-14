@@ -22,6 +22,7 @@ const currentAvatar = {
     "username": "ramsesmiron"
   }
 }
+
 export const commentData = {
     "currentUser": {
       "image": currentAvatar[1].avatar,

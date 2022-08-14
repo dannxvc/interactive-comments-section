@@ -42,6 +42,7 @@ function Main() {
     
     return ( 
         <main>
+            
             {state.order.map(id => <Comment key={id} {...state.objects[id]}></Comment>)}
             <NewComment
                 handleSubmit={createComment}
