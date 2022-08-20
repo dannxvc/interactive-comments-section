@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css';
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
@@ -31,7 +31,7 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
 
     const  updateComment= async (e) => {
         e.preventDefault();
-        dispatch({type: 'updateComment', comment: form, parentId: id});
+        dispatch({type: 'updateComment', comment: form});
         setIsEditing(false);
     }
     // const updateReply = async (e) => {
@@ -41,19 +41,16 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
     // }
     const onChange = (event, prop) => {
         event.preventDefault();
-        id && setForm(state => ({ ...state,[prop]:event.target.value}));
+        setForm(state => ({ ...state,[prop]:event.target.value}));
     }
 
-    // useEffect(() => {
-    //     if(isEditing){
-    //         parentId===undefined?
-    //         setForm(state.objects[id]):
-    //         setForm({content})
-    //     }else{
-    //         setForm(form)
-    //     }
+    useEffect(() => {
+        isEditing?
+            setForm(state.objects[id])
+            :
+            setForm(form)
 
-    // },[isEditing,id,state.objects,content,parentId]);
+    },[isEditing]);
 
     return ( 
         <section className="main-container">
@@ -85,7 +82,6 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                             <form className='form-update' onSubmit={updateComment}>
                                 <textarea 
                                 className="new-comment-description"
-                                // value={`${!replyingTo ?'': '@'+replyingTo+' '}${form.content}`}
                                 value={form.content}
                                 onChange={e => onChange(e,'content')}
                                 >
@@ -112,13 +108,16 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                     {isReplying ? 
                      (
                     <>
-                        {replyingTo &&<div className="reply-separator">
+                        {replyingTo &&
+                            <div className="reply-separator">
                             
-                            </div>}
-                        <NewReply user={user.username} id={id} replyingTo={replyingTo}
+                            </div>
+                            }
+                        <NewReply user={user.username} id={id} replyingTo={user.username}
                             handleReply={replyingTo && "new-reply-form"}
                             handleChange={e => onChange(e,'content')}
                             valueText={form.content}
+                            setIsReplying={setIsReplying}
                         />
                      </>
                      ):
@@ -128,7 +127,7 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
             </div>
             {replies&&replies.map(reply => 
             
-                <Reply key={reply.id} id={reply.id} {...reply} parentId={id} />
+                <Reply key={reply.id} id={reply.id} {...reply} parentId={id} rootid={id} repliesRoot={replies}/>
             
             )}
         </section>

@@ -5,7 +5,7 @@ import Button from '../shared/Button';
 import { useContext, useState } from 'react';
 import { Context } from '../../services/Memory'
 
-function NewReply({handleReply, user, id, replyingTo}) {
+function NewReply({handleReply, setIsReplying, id, replyingTo,classReply}) {
 
         // **** calculate the new id *****
         //initialize a new array that will contain all the ids
@@ -39,6 +39,7 @@ function NewReply({handleReply, user, id, replyingTo}) {
         })
 
         const currentUserInfo = commentData.currentUser;
+
         const [form, setForm] = useState(
             {
                 "content": "",
@@ -52,8 +53,8 @@ function NewReply({handleReply, user, id, replyingTo}) {
                 "replies": []
             }
         );
-
-        const [state, dispatch] = useContext(Context);
+           
+        const [, dispatch] = useContext(Context);
             
 
         const handleChange = (event) => {
@@ -64,10 +65,11 @@ function NewReply({handleReply, user, id, replyingTo}) {
         const createReply = async (e) => {
             e.preventDefault();
             dispatch({type: 'createReply', comment:form,commentId:id, maxValueId:maxValueId + 1}); 
+            setIsReplying(false);
         }
 
     return ( 
-        <form className={`container new-comment-container ${handleReply}`}
+        <form className={`container new-comment-container ${handleReply} ${classReply}`}
         onSubmit={createReply}
         
         >

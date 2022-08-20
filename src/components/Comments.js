@@ -37,7 +37,7 @@ function Main() {
     const createComment = async (e) => {
         e.preventDefault();
         dispatch({type: 'createComment', comment: form});
-        setForm(comment => ({ ...comment,[content]:""}));
+        setForm(form);
     }
     
     return ( 

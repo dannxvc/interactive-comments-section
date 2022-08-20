@@ -4,7 +4,8 @@
 .btns,
 .author-username,
 .comment-container,
-.reply-container{
+.reply-container,
+.reply-to-reply{
     display: grid;
 }
 .container{
@@ -26,6 +27,10 @@
 }
 .reply-container{
     grid-template-columns: 1rem auto;
+}
+
+.reply-to-reply{
+    grid-template-columns: 1rem 1rem auto;
 }
 .comment-vote,
 .comment-author{
@@ -155,6 +160,9 @@
     }
     .reply-container{
         grid-template-columns: 5.3rem auto;
+    }
+    .reply-to-reply{
+        grid-template-columns: 5.3rem 5.3rem auto;
     }
     .reply-separator{
         margin: 0 auto;
