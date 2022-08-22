@@ -28,50 +28,42 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
     const [state, dispatch] = useContext(Context);
     
     
-    const  updateReply= async (e) => {
+    const  updateReply= (e) => {
         e.preventDefault();
-        dispatch({type: 'updateReply', reply: form, parentId: parentId});
+        dispatch({type: 'updateReply', reply: form});
+        // dispatch({type: 'updateReply', reply: form, parentId: parentId, rootid:rootid, idActual:id});
         setIsEditing(false);
     }
-    // const updateReply = async (e) => {
-    //     e.preventDefault();
-    //     dispatch({type: 'updateReply', comment: form, parentId: id});
-    //     setIsEditing(false);
-    // }
     const onChange = (event, prop) => {
         event.preventDefault();
-        setForm({...form, content: event.target.value})
+        setForm(reply => ({ ...reply,[prop]:event.target.value}));
     }
-
     useEffect(() => {
         if(isEditing){
-            rootid==parentId?
-            setForm(repliesRoot[repliesRoot.findIndex(reply =>{
-                if(reply.id===id){return true}
-            })]):
-            //repliesRoot=state.objects[rootid].replies
-            // console.log(repliesRoot[0].replies[0]);
-           setForm(
-            repliesRoot[repliesRoot.findIndex(reply =>{
-                if(reply.id===parentId){return true}
-            })].replies[
-                repliesRoot[
-                    repliesRoot.findIndex(reply =>{
-                    if(reply.id===parentId){return true}
+            const findInsideReplies = (repliesArray, parentID)=>{                
+                repliesArray.map((reply)=>{    
+                    if(reply.id === parentId){
+                        let replyActualObject = reply.replies[reply.replies.findIndex(reply =>reply.id===id)];
+                        setForm(replyActualObject);
+                     } 
+                    if(reply.replies.length > 0){
+                        return findInsideReplies(reply.replies, parentID)
+                    }
                 })
-                ].replies.findIndex(reply =>{
-                    if(reply.id===id){return true}
-                })
-            ])
+            }
+            const findParent = (comments)=>{
+                for(let key in comments){
+                    if(state.objects[key].id === rootid){
+                        let replyActualObject = state.objects[key].replies[state.objects[key].replies.findIndex(reply =>reply.id===id)];
+                        setForm(replyActualObject);
+                    }
+                    findInsideReplies(state.objects[key].replies, rootid)
+                }
+            }
+            findParent(state.objects);
         }else{
-
             setForm(form)
         }
-
-            //  console.log( setForm(state.objects[parentId].replies[state.objects[parentId].replies.findIndex(reply =>{
-            // //     if(reply.id===id){return true}
-            // // })]))
-            // console.log(findParent)
 
     },[isEditing]);
 
@@ -100,7 +92,6 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
                             <ButtonAction
                                 id={id}
                                 user={user}
-                                parentReplies={replies}
                                 onClickReply={()=> isReplying === false?setIsReplying(true): setIsReplying(false)}
                                 onClickEdit={()=> isEditing === false?setIsEditing(true): setIsEditing(false)}
                             />

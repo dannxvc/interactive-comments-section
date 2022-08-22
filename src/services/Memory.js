@@ -26,8 +26,6 @@ function reductor(state, action){
                     [id]: {id, ...action.comment}
                 }
             };
-          console.log(newState);
-
             return newState;
         };
         case 'deleteComment': {
@@ -44,32 +42,38 @@ function reductor(state, action){
         case 'updateComment':{
             const id = action.comment.id;
             // const parentId = action.parentId;
+            console.log(state.objects[id] );
             state.objects[id] = {
-                    ...state.objects[id],
-                    ...action.comment
+                ...state.objects[id],
+                ...action.comment
             };
             const newState = {...state};
-
+            
             return newState;
         };
         case 'updateReply':{
-            const parentId = action.parentId;
-            const id = action.reply.id;
-       
-            state.objects[parentId].replies[state.objects[parentId].replies.findIndex(reply =>{
-                if(reply.id===id){return true}
-            })] = {
-                ...state.objects[parentId].replies[state.objects[parentId].replies.findIndex(reply =>{
-                    if(reply.id===id){return true}
-                })],
-                    ...action.reply
+            const idActual= action.reply.id;
+            const replyUpdated= action.reply;
+            const newState={...state};
+
+                const findParent = (comments)=>{
+                    for(let key in comments){
+                            let replyActualObject = newState.objects[key].replies[state.objects[key].replies.findIndex(reply =>reply.id===idActual)];
+                            replyActualObject = {
+                                ...replyActualObject,
+                                ...replyUpdated
+                            };
+                            return replyActualObject;
+                    }
+                }
+                findParent(state.objects);
+
+                console.log(newState);
+                return newState;
             };
-            const newState = {...state};
 
-            return newState;
-        };
         case 'createReply': {
-
+                
             const newState = {
                 order:[...state.order],
                 objects:{
@@ -106,7 +110,7 @@ function reductor(state, action){
                 }
             }
             findParent(state.objects)
-            console.log(newState)
+            // console.log(newState)
             return newState;
         }
         default:
