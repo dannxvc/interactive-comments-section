@@ -17,7 +17,6 @@ function reductor(state, action){
             return newState;
         };
         case 'createComment': {
-            // const id = action.comment.id;
             const id= String(Math.random());
             const newState = {
                 order:[...state.order, id],
@@ -31,7 +30,6 @@ function reductor(state, action){
         case 'deleteComment': {
             const id= action.id;
             const newOrder = state.order.filter(item => item !== id);
-            console.log(state.objects[id]);
             delete state.objects[id];
             const newState = {
                 order:newOrder,
@@ -41,34 +39,48 @@ function reductor(state, action){
         };  
         case 'updateComment':{
             const id = action.comment.id;
-            // const parentId = action.parentId;
-            console.log(state.objects[id] );
             state.objects[id] = {
                 ...state.objects[id],
                 ...action.comment
             };
             const newState = {...state};
+            console.log(state.objects[id]);
             
             return newState;
         };
         case 'updateReply':{
             const idActual= action.reply.id;
+            const parentId=action.parentId;
+            const rootid=action.rootid;
             const replyUpdated= action.reply;
-            const newState={...state};
-
-                const findParent = (comments)=>{
-                    for(let key in comments){
-                            let replyActualObject = newState.objects[key].replies[state.objects[key].replies.findIndex(reply =>reply.id===idActual)];
-                            replyActualObject = {
-                                ...replyActualObject,
-                                ...replyUpdated
-                            };
-                            return replyActualObject;
-                    }
+   
+                const findInsideReplies = (repliesArray, parentID)=>{                
+                repliesArray.map((reply)=>{    
+                    if(reply.id === parentId){
+                            let replyIndex = reply.replies.findIndex(reply =>reply.id===idActual);
+                        if(replyIndex !== -1){
+                            reply.replies[replyIndex] = replyUpdated;
+                            return reply;
+                        }
+                    } 
+                    if(reply.replies.length > 0){
+                            return findInsideReplies(reply.replies, parentID);
+                        }
+                    })
                 }
-                findParent(state.objects);
 
-                console.log(newState);
+            const findParent = (reply)=>{
+                for(let key in reply){
+                    let replyIndex = reply[key].replies.findIndex(reply =>reply.id===idActual);
+                    if(replyIndex !== -1){
+                        reply[key].replies[replyIndex] = replyUpdated;
+                        return reply;
+                    }
+                    findInsideReplies(reply[key].replies, rootid);
+                }
+            }
+                findParent(state.objects);
+                const newState={...state};
                 return newState;
             };
 
@@ -83,34 +95,29 @@ function reductor(state, action){
 
             const commentId = action.commentId;
             let newReplyObject = action.comment;
-            const maxValueId = action.maxValueId
-            // adding the id for the new reply object
-            newReplyObject = {id: maxValueId,...newReplyObject}
+            const maxValueId = action.maxValueId;
+
+            newReplyObject = {id: maxValueId,...newReplyObject};
 
             const findInsideReplies = (repliesArray, parentID)=>{                
                 repliesArray.map((reply)=>{    
-                    // condition to stop recursion and add the new reply
                     if(reply.id === parentID){
-                        return reply.replies = [...reply.replies, newReplyObject]
+                        return reply.replies = [...reply.replies, newReplyObject];
                     } 
-                    // condition to start the recursive behavior
                     if(reply.replies.length > 0){
-                        return findInsideReplies(reply.replies, parentID)
+                        return findInsideReplies(reply.replies, parentID);
                     }
                 })
             }
-            // the comments argument is the state.objects
             const findParent = (comments)=>{
                 for(let key in comments){
                     if(comments[key].id === commentId){
-                        return newState.objects[key].replies = [...newState.objects[key].replies,newReplyObject]
+                        return newState.objects[key].replies = [...newState.objects[key].replies,newReplyObject];
                     }
-                    // if condition doesn't work, run the following function to go deeper
-                    findInsideReplies(comments[key].replies, commentId)
+                    findInsideReplies(comments[key].replies, commentId);
                 }
             }
-            findParent(state.objects)
-            // console.log(newState)
+            findParent(state.objects);
             return newState;
         }
         default:

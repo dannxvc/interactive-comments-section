@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css';
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
-import NewReply from '../new/NewReply';
+import NewReply from '../New/NewReply';
 import { commentData } from "./CommentData";
 import { Context } from '../../services/Memory';
 import Button from './Button';
@@ -34,11 +34,6 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
         dispatch({type: 'updateComment', comment: form});
         setIsEditing(false);
     }
-    // const updateReply = async (e) => {
-    //     e.preventDefault();
-    //     dispatch({type: 'updateReply', comment: form, parentId: id});
-    //     setIsEditing(false);
-    // }
     const onChange = (event, prop) => {
         event.preventDefault();
         setForm(state => ({ ...state,[prop]:event.target.value}));
@@ -113,7 +108,10 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                             
                             </div>
                             }
-                        <NewReply user={user.username} id={id} replyingTo={user.username}
+                        <NewReply 
+                            user={user.username} 
+                            id={id} 
+                            replyingTo={user.username}
                             handleReply={replyingTo && "new-reply-form"}
                             handleChange={e => onChange(e,'content')}
                             valueText={form.content}
@@ -127,7 +125,13 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
             </div>
             {replies&&replies.map(reply => 
             
-                <Reply key={reply.id} id={reply.id} {...reply} parentId={id} rootid={id} repliesRoot={replies}/>
+                <Reply 
+                    key={reply.id} 
+                    id={reply.id} {...reply} 
+                    parentId={id} 
+                    rootid={id} 
+                    repliesRoot={replies}
+                />
             
             )}
         </section>

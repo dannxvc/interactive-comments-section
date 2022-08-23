@@ -6,28 +6,17 @@ import { useContext, useState } from 'react';
 import { Context } from '../../services/Memory'
 
 function NewReply({handleReply, setIsReplying, id, replyingTo,classReply}) {
-
-        // **** calculate the new id *****
-        //initialize a new array that will contain all the ids
         const arrayIds = []
-        // to iterate over the comments array from commentData.js
         const extractAllIds = (comments)=>{
-            // iterate over each comment with map()
             comments.map((comment)=>{
-                // add the id value into the arrayIds and iterate over the next element (comment)
                 arrayIds.push(comment.id)
-                // if the comment has a replies property (an array with objects)
                 if(comment.replies){
-                    // every time this is true, extractAllIds() works as a recursive function with the founded array (replies)
                     return extractAllIds(comment.replies)
                 }
             })
             return arrayIds
         }
-
-        // execute it at the first render of the component (not the parent component)
         extractAllIds(commentData.comments)
-        // to find the max value of arrayIds (avoid using a random id number)
         const maxValueId = arrayIds.reduce((previous, current)=>{
                 return (previous < current) ? current: previous;
         })
@@ -80,7 +69,7 @@ function NewReply({handleReply, setIsReplying, id, replyingTo,classReply}) {
             </textarea>
             <Button
                className="btn-reply"
-            >SEND</Button>
+            >REPLY</Button>
         </form>
      );
 }

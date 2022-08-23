@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css'
 import ButtonAction from '../shared/ButtonAction';
 import ButtonVote from '../shared/ButtonVote';
-import NewReply from '../new/NewReply';
+import NewReply from '../New/NewReply';
 import { commentData } from "../shared/CommentData";
 import { Context } from '../../services/Memory';
 import Button from '../shared/Button';
@@ -30,8 +30,7 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
     
     const  updateReply= (e) => {
         e.preventDefault();
-        dispatch({type: 'updateReply', reply: form});
-        // dispatch({type: 'updateReply', reply: form, parentId: parentId, rootid:rootid, idActual:id});
+        dispatch({type: 'updateReply', reply: form, parentId: parentId, rootid:rootid, idActual:id});
         setIsEditing(false);
     }
     const onChange = (event, prop) => {
@@ -51,10 +50,10 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
                     }
                 })
             }
-            const findParent = (comments)=>{
-                for(let key in comments){
-                    if(state.objects[key].id === rootid){
-                        let replyActualObject = state.objects[key].replies[state.objects[key].replies.findIndex(reply =>reply.id===id)];
+            const findParent = (replies)=>{
+                for(let key in replies){
+                    if(replies[key].id === rootid){
+                        let replyActualObject = replies[key].replies[replies[key].replies.findIndex(reply =>reply.id===id)];
                         setForm(replyActualObject);
                     }
                     findInsideReplies(state.objects[key].replies, rootid)
@@ -65,7 +64,7 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
             setForm(form)
         }
 
-    },[isEditing]);
+    },[isEditing,id,state.objects, parentId, rootid]);
 
     return ( 
         <section className="main-container">
@@ -114,8 +113,9 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
                             : (
                             <div className="comment-description">
                                 <p>
-                                    <span className="user-replying-to">@{replyingTo} </span>
-                                    {content}
+                                    <span className="user-replying-to">
+                                        @{replyingTo} 
+                                    </span> {content}
                                 </p>
                             </div> 
                             )
@@ -133,7 +133,10 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
                             <div className="reply-separator"></div>
                             </>
                             }
-                        <NewReply user={user.username} id={id}  replyingTo={user.username}
+                        <NewReply 
+                            user={user.username} 
+                            id={id}  
+                            replyingTo={user.username}
                             handleReply={replyingTo && "new-reply-form"}
                             handleChange={e => onChange(e,'content')}
                             valueText={form.content}
@@ -148,7 +151,14 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
             </div>
             {replies&&replies.map(reply => 
             
-            <Reply key={reply.id} id={reply.id} {...reply} parentId={id} rootid={rootid} repliesRoot={repliesRoot}/>
+            <Reply 
+                key={reply.id} 
+                id={reply.id} 
+                {...reply} 
+                parentId={id} 
+                rootid={rootid} 
+                repliesRoot={repliesRoot}
+            />
         
         )}
         </section>
