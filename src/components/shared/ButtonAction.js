@@ -2,7 +2,7 @@ import {  useState } from "react";
 import { commentData } from "./CommentData";
 import Modal from "./Modal";
 
-function ButtonAction({user,id,onClickReply,onClickEdit}) {
+function ButtonAction({user,id,parentId,rootid,onClickReply,onClickEdit}) {
 
     const[modalIsVisible,setModalVisible] = useState(false);
     const handleDeleteClick = () => modalIsVisible === false?setModalVisible(true):setModalVisible(false);
@@ -35,9 +35,10 @@ function ButtonAction({user,id,onClickReply,onClickEdit}) {
                 </button>
             }  
             {modalIsVisible?(
-
                 <Modal
                     id={id}
+                    parentId={parentId}
+                    rootid={rootid}
                     handleCancelClick={handleDeleteClick}
                 />  
             ):

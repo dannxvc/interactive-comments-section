@@ -48,41 +48,6 @@ function reductor(state, action){
             
             return newState;
         };
-        case 'updateReply':{
-            const idActual= action.reply.id;
-            const parentId=action.parentId;
-            const rootid=action.rootid;
-            const replyUpdated= action.reply;
-   
-                const findInsideReplies = (repliesArray, parentID)=>{                
-                repliesArray.map((reply)=>{    
-                    if(reply.id === parentId){
-                            let replyIndex = reply.replies.findIndex(reply =>reply.id===idActual);
-                        if(replyIndex !== -1){
-                            reply.replies[replyIndex] = replyUpdated;
-                            return reply;
-                        }
-                    } 
-                    if(reply.replies.length > 0){
-                            return findInsideReplies(reply.replies, parentID);
-                        }
-                    })
-                }
-
-            const findParent = (reply)=>{
-                for(let key in reply){
-                    let replyIndex = reply[key].replies.findIndex(reply =>reply.id===idActual);
-                    if(replyIndex !== -1){
-                        reply[key].replies[replyIndex] = replyUpdated;
-                        return reply;
-                    }
-                    findInsideReplies(reply[key].replies, rootid);
-                }
-            }
-                findParent(state.objects);
-                const newState={...state};
-                return newState;
-            };
 
         case 'createReply': {
                 
@@ -91,7 +56,7 @@ function reductor(state, action){
                 objects:{
                     ...state.objects
                 }
-            }
+            };
 
             const commentId = action.commentId;
             let newReplyObject = action.comment;
@@ -103,23 +68,97 @@ function reductor(state, action){
                 repliesArray.map((reply)=>{    
                     if(reply.id === parentID){
                         return reply.replies = [...reply.replies, newReplyObject];
-                    } 
+                    };
                     if(reply.replies.length > 0){
                         return findInsideReplies(reply.replies, parentID);
-                    }
-                })
-            }
+                    };
+                });
+            };
             const findParent = (comments)=>{
                 for(let key in comments){
                     if(comments[key].id === commentId){
                         return newState.objects[key].replies = [...newState.objects[key].replies,newReplyObject];
-                    }
+                    };
                     findInsideReplies(comments[key].replies, commentId);
-                }
-            }
+                };
+            };
             findParent(state.objects);
             return newState;
-        }
+        };
+
+        case 'updateReply':{
+            const idActual= action.reply.id;
+            const parentId=action.parentId;
+            const rootid=action.rootid;
+            const replyUpdated= action.reply;
+   
+            const findInsideReplies = (repliesArray, parentID)=>{                
+                repliesArray.map((reply)=>{    
+                    if(reply.id === parentId){
+                            let replyIndex = reply.replies.findIndex(reply =>reply.id===idActual);
+                        if(replyIndex !== -1){
+                            reply.replies[replyIndex] = replyUpdated;
+                            return reply;
+                        };
+                    };
+                    if(reply.replies.length > 0){
+                            return findInsideReplies(reply.replies, parentID);
+                    };
+                });
+            };
+
+            const findParent = (reply)=>{
+                for(let key in reply){
+                    let replyIndex = reply[key].replies.findIndex(reply =>reply.id===idActual);
+                    if(replyIndex !== -1){
+                        reply[key].replies[replyIndex] = replyUpdated;
+                        return reply;
+                    }
+                    findInsideReplies(reply[key].replies, rootid);
+                };
+            };
+
+            findParent(state.objects);
+            const newState={...state};
+            return newState;
+        };
+        
+        case 'deleteReply': {
+                const idActual= action.idActual;
+                const parentId=action.parentId;
+                const rootid=action.rootid;
+                const newState = {...state
+                };
+
+                const findInsideReplies = (repliesArray, parentID)=>{                
+                    repliesArray.map((reply)=>{    
+                        if(reply.id === parentId){
+                                let replyIndex = reply.replies.findIndex(reply =>reply.id===idActual);
+                            if(replyIndex !== -1){
+                                reply.replies.splice(replyIndex,1);
+                                return reply;
+                            };
+                        };
+                        if(reply.replies.length > 0){
+                            return findInsideReplies(reply.replies, parentID);
+                        };
+                    });
+                };
+    
+                const findParent = (reply)=>{
+                    for(let key in reply){
+                        let replyIndex = reply[key].replies.findIndex(reply =>reply.id===idActual);
+                        if(replyIndex !== -1){
+                            reply[key].replies.splice(replyIndex,1);
+                            return reply;
+                        }
+                        findInsideReplies(reply[key].replies, rootid);
+                    };
+                };
+                findParent(state.objects);
+                return newState;
+        };
+
         default:
         throw new Error();
     }

@@ -30,7 +30,7 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
     
     const  updateReply= (e) => {
         e.preventDefault();
-        dispatch({type: 'updateReply', reply: form, parentId: parentId, rootid:rootid, idActual:id});
+        dispatch({type: 'updateReply', reply: form, parentId: parentId, rootid:rootid});
         setIsEditing(false);
     }
     const onChange = (event, prop) => {
@@ -93,6 +93,8 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
                                 user={user}
                                 onClickReply={()=> isReplying === false?setIsReplying(true): setIsReplying(false)}
                                 onClickEdit={()=> isEditing === false?setIsEditing(true): setIsEditing(false)}
+                                parentId={parentId}
+                                rootid={rootid}
                             />
                         </div>  
                         {isEditing ? ( 
