@@ -38,20 +38,7 @@ export const commentData = {
           "image": PersonTwo,
           "username": "amyrobson"
         },
-        "replies": [
-          {
-            "id": 7,
-            "content": "If you're still new, I'd recommend focusing on the fundamentals of HTML, CSS, and JS before considering React. It's very tempting to jump ahead but lay a solid foundation first.",
-            "createdAt": "1 week ago",
-            "score": 4,
-            "replyingTo": "amyrobson",
-            "user": {
-              "image": PersonFour,
-              "username": "ramsesmiron"
-            },
-            "replies": [],
-          },
-        ]
+        "replies": []
       },
       {
         "id": 2,
@@ -77,7 +64,7 @@ export const commentData = {
           },
           {
             "id": 4,
-            "content": "I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/framework. But the fundamentals are what stay constant.",
+            "content": "I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/ framework. But the fundamentals are what stay constant.",
             "createdAt": "2 days ago",
             "score": 2,
             "replyingTo": "ramsesmiron",

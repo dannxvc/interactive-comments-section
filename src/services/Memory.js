@@ -1,7 +1,10 @@
 import { createContext, useReducer } from "react";
 import { commentData } from "../components/shared/CommentData";
 
-const initialState = {
+const memory = localStorage.getItem('comments');
+const initialState = memory
+? JSON.parse(memory)
+: {
     order:[],
     objects:{}
 }
@@ -14,6 +17,7 @@ function reductor(state, action){
                 order:commentsGeneral.comments.map((comment) => comment.id),
                 objects:commentsGeneral.comments.reduce((object, comment)=>({...object, [comment.id]:comment}),{})
             };
+            localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };
         case 'createComment': {
@@ -25,6 +29,7 @@ function reductor(state, action){
                     [id]: {id, ...action.comment}
                 }
             };
+            localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };
         case 'deleteComment': {
@@ -35,6 +40,7 @@ function reductor(state, action){
                 order:newOrder,
                 objects:state.objects
             };
+            localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };  
         case 'updateComment':{
@@ -44,8 +50,7 @@ function reductor(state, action){
                 ...action.comment
             };
             const newState = {...state};
-            console.log(state.objects[id]);
-            
+            localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };
 
@@ -83,6 +88,7 @@ function reductor(state, action){
                 };
             };
             findParent(state.objects);
+            localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };
 
@@ -120,6 +126,7 @@ function reductor(state, action){
 
             findParent(state.objects);
             const newState={...state};
+            localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };
         
@@ -156,7 +163,8 @@ function reductor(state, action){
                     };
                 };
                 findParent(state.objects);
-                return newState;
+            localStorage.setItem('comments',JSON.stringify(newState));
+            return newState;
         };
 
         default:
@@ -164,12 +172,13 @@ function reductor(state, action){
     }
 }
 
-const comments=reductor(initialState,{type: 'place',commentsGeneral:commentData});
+// const comments=reductor(initialState,{type: 'place',commentsGeneral:commentData});
+// reductor(initialState,{type: 'place',commentsGeneral:commentData});
 
 export const Context = createContext(null);
 
 function Memory({children}) {
-    const [state, dispatch] = useReducer(reductor, comments);
+    const [state, dispatch] = useReducer(reductor, initialState);
     return ( 
         <Context.Provider value={[state, dispatch]}>
             {children}
