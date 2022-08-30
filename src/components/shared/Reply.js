@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css'
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
-import NewReply from '../New/NewReply';
+import NewReply from '../new/NewReply';
 import { commentData } from "./CommentData";
 import { Context } from '../../services/Memory';
 import Button from '../shared/Button';
@@ -50,9 +50,9 @@ function Reply ({id,content,createdAt,score,user,replies,replyingTo,parentId,roo
                         setForm(replyActualObject);
                      } 
                     if(reply.replies.length > 0){
-                        return findInsideReplies(reply.replies, parentID)
+                        return findInsideReplies(reply.replies, parentID);
                     }
-                })
+                });
             }
             const findParent = (replies)=>{
                 for(let key in replies){

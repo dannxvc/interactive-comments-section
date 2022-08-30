@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css';
 import ButtonAction from './ButtonAction';
 import ButtonVote from './ButtonVote';
-import NewReply from '../New/NewReply';
+import NewReply from '../new/NewReply';
 import { commentData } from "./CommentData";
 import { Context } from '../../services/Memory';
 import Button from './Button';

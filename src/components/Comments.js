@@ -1,7 +1,7 @@
 import Comment from "./shared/Comment";
 import '../assets/css/Main.css';
 import { Context } from '../services/Memory';
-import NewComment from "./New/NewComment";
+import NewComment from "./new/NewComment";
 import { useContext, useEffect, useState } from 'react';
 import { commentData } from "./shared/CommentData";
 
