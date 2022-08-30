@@ -3,7 +3,7 @@ import '../../assets/css/New.css';
 import { commentData } from "../shared/CommentData";
 import Button from '../shared/Button';
 import { useContext, useState } from 'react';
-import { Context } from '../../services/Memory'
+import { Context } from '../../services/Memory';
 
 function NewReply({handleReply, setIsReplying, id, replyingTo,classReply}) {
         const arrayIds = []
@@ -52,9 +52,9 @@ function NewReply({handleReply, setIsReplying, id, replyingTo,classReply}) {
         }
 
     return ( 
-        <form className={`container new-comment-container ${handleReply} ${classReply}`}
-        onSubmit={createReply}
-        
+        <form 
+            className={`container new-comment-container ${handleReply} ${classReply}`}
+            onSubmit={createReply}   
         >
             <div className="new-comment-pic">
                 <img src={currentUserInfo.image} className="nc-img-author" alt="Author icon"></img>

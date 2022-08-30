@@ -7,7 +7,7 @@
 
 ## 👾 Solution
 
-![](/assets/img/solution/solution_gif.gif)
+![](/src/assets/img/solution/solution_gif.gif)
 
 ## 👾 Set Up
 

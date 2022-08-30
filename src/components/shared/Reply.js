@@ -1,13 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import '../../assets/css/Comment.css'
-import ButtonAction from '../shared/ButtonAction';
-import ButtonVote from '../shared/ButtonVote';
+import ButtonAction from './ButtonAction';
+import ButtonVote from './ButtonVote';
 import NewReply from '../New/NewReply';
-import { commentData } from "../shared/CommentData";
+import { commentData } from "./CommentData";
 import { Context } from '../../services/Memory';
 import Button from '../shared/Button';
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 
-const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,rootid,repliesRoot})=>{
+
+
+function Reply ({id,content,createdAt,score,user,replies,replyingTo,parentId,rootid,repliesRoot}){
     
     const currentUserInfo = commentData.currentUser;
     const [isReplying,setIsReplying]= useState(false);
@@ -65,10 +69,21 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
         }
 
     },[isEditing,id,state.objects, parentId, rootid]);
+    
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
 
     return ( 
         <section className="main-container">
-            <div className={`${rootid===parentId?"reply-container":"reply-to-reply"}`}>
+            <div 
+                className={`${rootid===parentId?"reply-container":"reply-to-reply"}`}
+                ref={ref}
+                style={{
+                    transform: isInView ? "none" : "translateY(100px)",
+                    opacity: isInView ? 1 : 0,
+                    transition: "all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s"
+                }}
+            >
                 {rootid===parentId?
                 <div className="reply-separator"></div>:
                 <>

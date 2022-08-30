@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { Context } from "../../services/Memory";
 import '../../assets/css/Modal.css';
+import { useRef } from "react";
+import { useInView } from "framer-motion";
 
 function Modal({classModal,id,parentId,rootid,handleCancelClick}) {
 
@@ -15,9 +17,20 @@ function Modal({classModal,id,parentId,rootid,handleCancelClick}) {
         e.preventDefault();
         dispatch({type: 'deleteReply', parentId: parentId, rootid:rootid, idActual:id});
     }
+    
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
     return ( 
         <div className={`modal ${classModal}`}>
-            <div className="modal-alert">
+            <div 
+                className="modal-alert" 
+                ref={ref}
+                style={{
+                    transform: isInView ? "none" : "translateY(200px)",
+                    opacity: isInView ? 1 : 0,
+                    transition: "all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s"
+                }}
+            >
                 <h2 className="modal-title">
                     Delete comment
                 </h2>

@@ -65,7 +65,8 @@ function reductor(state, action){
 
             const commentId = action.commentId;
             let newReplyObject = action.comment;
-            const maxValueId = action.maxValueId;
+            // const maxValueId = action.maxValueId;
+            const maxValueId = String(Math.random());
 
             newReplyObject = {id: maxValueId,...newReplyObject};
 
@@ -156,7 +157,7 @@ function reductor(state, action){
                     for(let key in reply){
                         let replyIndex = reply[key].replies.findIndex(reply =>reply.id===idActual);
                         if(replyIndex !== -1){
-                            reply[key].replies.splice(replyIndex,1);
+                           reply[key].replies.splice(replyIndex,1);
                             return reply;
                         }
                         findInsideReplies(reply[key].replies, rootid);

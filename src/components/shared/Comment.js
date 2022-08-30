@@ -6,7 +6,10 @@ import NewReply from '../New/NewReply';
 import { commentData } from "./CommentData";
 import { Context } from '../../services/Memory';
 import Button from './Button';
-import Reply from '../Reply';
+import Reply from './Reply';
+import { useRef } from "react";
+import { useInView } from "framer-motion";
+
 
 
 function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
@@ -46,9 +49,19 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
             setForm(form)
 
     },[isEditing]);
-
+    
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
     return ( 
-        <section className="main-container">
+        <section 
+            className="main-container"
+            ref={ref}
+            style={{
+                transform: isInView ? "none" : "translateY(100px)",
+                opacity: isInView ? 1 : 0,
+                transition: "all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s"
+            }}
+        >
             <div className={replyingTo && `reply-container`}>
                 {replyingTo &&<div className="reply-separator"></div>}
                 <div className="container">

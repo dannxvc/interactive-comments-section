@@ -29,7 +29,6 @@ function Main() {
     const onChange = (event, prop) => {
         event.preventDefault();
         setForm(comment => ({ ...comment,[prop]:event.target.value}));
-
     }
     useEffect(() => {
     },[form]);
@@ -37,7 +36,7 @@ function Main() {
     const createComment = async (e) => {
         e.preventDefault();
         dispatch({type: 'createComment', comment: form});
-        setForm(form);
+        setForm(comment => ({ ...comment, content:""}));
     }
     
     return ( 

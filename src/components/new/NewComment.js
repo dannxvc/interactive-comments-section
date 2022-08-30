@@ -7,9 +7,9 @@ function NewComment({handleSubmit, handleReply,valueText,handleChange}) {
 
     const currentUserInfo = commentData.currentUser;
     return ( 
-        <form className={`container new-comment-container ${handleReply}`}
-        onSubmit={handleSubmit}
-        
+        <form 
+            className={`container new-comment-container ${handleReply}`}
+            onSubmit={handleSubmit}
         >
             <div className="new-comment-pic">
                 <img src={currentUserInfo.image} className="nc-img-author" alt="Author icon"></img>
