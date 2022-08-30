@@ -1,5 +1,5 @@
 import { createContext, useReducer } from "react";
-import { commentData } from "../components/shared/CommentData";
+// import { commentData } from "../components/shared/CommentData";
 
 const memory = localStorage.getItem('comments');
 const initialState = memory

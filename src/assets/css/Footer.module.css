@@ -1,0 +1,13 @@
+.footer{
+    background:var(--blue);
+    color: var(--blue-light);
+    padding: 1rem;
+    text-align: center;
+}
+.footer a{
+    text-decoration: none;
+    color: var(--white);
+}
+.footer a:hover{
+    color: var(--red-light);
+}

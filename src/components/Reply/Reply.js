@@ -167,4 +167,4 @@ const Reply = ({id,content,createdAt,score,user,replies,replyingTo,parentId,root
     );
 }
 
-export default Reply
+export default Reply;
