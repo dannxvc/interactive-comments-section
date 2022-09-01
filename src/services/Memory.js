@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { commentData } from "../components/shared/CommentData";
 
 const memory = localStorage.getItem('comments');
@@ -9,7 +9,7 @@ const initialState = memory
     objects:{}
 }
 
-function reductor(state, action){
+function reducer(state, action){
     switch(action.type){
         case 'place': {
             const commentsGeneral = action.commentsGeneral;
@@ -173,13 +173,18 @@ function reductor(state, action){
     }
 }
 
-// const comments=reductor(initialState,{type: 'place',commentsGeneral:commentData});
-reductor(initialState,{type: 'place',commentsGeneral:commentData});
+// const comments=reducer(initialState,{type: 'place',commentsGeneral:commentData});
+reducer(initialState,{type: 'place',commentsGeneral:commentData});
 
 export const Context = createContext(null);
-
 function Memory({children}) {
-    const [state, dispatch] = useReducer(reductor, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
+    useEffect(() => {
+        if(localStorage.getItem('comments'))
+        {
+            localStorage.setItem('comments', JSON.stringify(initialState))
+        }
+      }, []);      
     return ( 
         <Context.Provider value={[state, dispatch]}>
             {children}
