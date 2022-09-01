@@ -74,10 +74,10 @@ function reductor(state, action){
                 repliesArray.map((reply)=>{    
                     if(reply.id === parentID){
                         return reply.replies = [...reply.replies, newReplyObject];
-                    };
+                    }
                     if(reply.replies.length > 0){
                         return findInsideReplies(reply.replies, parentID);
-                    };
+                    }
                 });
             };
             const findParent = (comments)=>{
@@ -173,13 +173,13 @@ function reductor(state, action){
     }
 }
 
-const comments=reductor(initialState,{type: 'place',commentsGeneral:commentData});
-// reductor(initialState,{type: 'place',commentsGeneral:commentData});
+// const comments=reductor(initialState,{type: 'place',commentsGeneral:commentData});
+reductor(initialState,{type: 'place',commentsGeneral:commentData});
 
 export const Context = createContext(null);
 
 function Memory({children}) {
-    const [state, dispatch] = useReducer(reductor, comments);
+    const [state, dispatch] = useReducer(reductor, initialState);
     return ( 
         <Context.Provider value={[state, dispatch]}>
             {children}
