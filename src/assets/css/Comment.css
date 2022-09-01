@@ -69,7 +69,7 @@
 .btn-reply-blue span,
 .btn-reply-red span{
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--red);
     margin-inline-start: 0.5rem;
 }

@@ -1,6 +1,6 @@
 <h1 align="center">Interactive Comments Section</h1>
-<!-- 
-<p align="center">Live Site <a href="https://danna.pages.dev/">Here</a>.</p> -->
+
+<p align="center">Live Site <a href="https://interactive-comments-section-danna.pages.dev/">Here</a>.</p>
 
 1. Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 2. This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9).
@@ -8,6 +8,11 @@
 ## 👾 Solution
 
 ![](/src/assets/img/solution/solution_gif.gif)
+
+### Links
+
+- Solution URL: [Add solution URL here](https://www.frontendmentor.io/solutions/interactive-comments-section-developed-with-reactjs-8wVgiKuePG)
+- Live Site URL: [Add live site URL here](https://interactive-comments-section-danna.pages.dev/)
 
 ## 👾 Set Up
 
@@ -43,6 +48,7 @@ Users should be able to:
 - CSS Grid
 - Mobile First WorkFlow
 - [React](https://reactjs.org/) - JS library
+- [Framer Motion](https://www.framer.com/) - Animation library
 
 ### 💻 Author
 

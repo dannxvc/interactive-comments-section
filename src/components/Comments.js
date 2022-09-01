@@ -31,8 +31,6 @@ function Main() {
         setForm(comment => ({ ...comment,[prop]:event.target.value}));
     }
     useEffect(() => {
-        // let conectData =  localStorage.getItem('comments');
-        // console.log(conectData);
     },[form]);
 
     const createComment = async (e) => {

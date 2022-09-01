@@ -6,7 +6,7 @@
     border-radius: 0.6rem;
     background: var(--blue);
     color: var(--white);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.97rem;
     cursor: pointer;
     transition: opacity .3s ease-in-out;

@@ -115,25 +115,28 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                     </div>
                 </div>
                     {isReplying ? 
-                     (
-                    <>
-                        {replyingTo &&
-                            <div className="reply-separator">
-                            
-                            </div>
+                    (
+                        <>
+                            {replyingTo &&
+                                <div className="reply-separator">
+                                
+                                </div>
                             }
-                        <NewReply 
-                            user={user.username} 
-                            id={id} 
-                            replyingTo={user.username}
-                            handleReply={replyingTo && "new-reply-form"}
-                            handleChange={e => onChange(e,'content')}
-                            valueText={form.content}
-                            setIsReplying={setIsReplying}
-                        />
-                     </>
-                     ):
-                    (<></>)
+                            <NewReply 
+                                user={user.username} 
+                                id={id} 
+                                replyingTo={user.username}
+                                handleReply={replyingTo && "new-reply-form"}
+                                handleChange={e => onChange(e,'content')}
+                                valueText={form.content}
+                                setIsReplying={setIsReplying}
+                            />
+                        </>
+                    )
+                    :
+                    (
+                        <></>
+                    )
                     }
                    
             </div>
