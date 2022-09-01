@@ -2,12 +2,6 @@ import { createContext, useEffect, useReducer } from "react";
 import { commentData } from "../components/shared/CommentData";
 
 const memory = localStorage.getItem('comments');
-// const initialState = memory
-// ? JSON.parse(memory)
-// : {
-//     order:[],
-//     objects:{}
-// }
 const initialState = memory
 ? JSON.parse(memory)
 :{

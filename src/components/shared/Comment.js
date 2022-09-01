@@ -62,6 +62,7 @@ function Comment({id,content,createdAt,score,user,replies,replyingTo}) {
                 transition: "all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.1s"
             }}
         >
+            <h2 className='title-screen-readers-only'>Comment by {user.username}</h2>
             <div className={replyingTo && `reply-container`}>
                 {replyingTo &&<div className="reply-separator"></div>}
                 <div className="container">
