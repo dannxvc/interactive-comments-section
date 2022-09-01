@@ -2,12 +2,18 @@ import { createContext, useEffect, useReducer } from "react";
 import { commentData } from "../components/shared/CommentData";
 
 const memory = localStorage.getItem('comments');
+// const initialState = memory
+// ? JSON.parse(memory)
+// : {
+//     order:[],
+//     objects:{}
+// }
 const initialState = memory
 ? JSON.parse(memory)
-: {
-    order:[],
-    objects:{}
-}
+:{
+    order:commentData.comments.map((comment) => comment.id),
+    objects:commentData.comments.reduce((object, comment)=>({...object, [comment.id]:comment}),{})
+};
 
 function reducer(state, action){
     switch(action.type){
@@ -18,6 +24,7 @@ function reducer(state, action){
                 objects:commentsGeneral.comments.reduce((object, comment)=>({...object, [comment.id]:comment}),{})
             };
             localStorage.setItem('comments',JSON.stringify(newState));
+            console.log(newState);
             return newState;
         };
         case 'createComment': {
@@ -29,6 +36,8 @@ function reducer(state, action){
                     [id]: {id, ...action.comment}
                 }
             };
+            console.log(newState);
+
             localStorage.setItem('comments',JSON.stringify(newState));
             return newState;
         };
@@ -90,6 +99,7 @@ function reducer(state, action){
             };
             findParent(state.objects);
             localStorage.setItem('comments',JSON.stringify(newState));
+            console.log(newState);
             return newState;
         };
 
@@ -174,17 +184,11 @@ function reducer(state, action){
 }
 
 // const comments=reducer(initialState,{type: 'place',commentsGeneral:commentData});
-reducer(initialState,{type: 'place',commentsGeneral:commentData});
+// reducer(initialState,{type: 'place',commentsGeneral:commentData});
 
 export const Context = createContext(null);
 function Memory({children}) {
     const [state, dispatch] = useReducer(reducer, initialState);
-    useEffect(() => {
-        if(localStorage.getItem('comments'))
-        {
-            localStorage.setItem('comments', JSON.stringify(initialState))
-        }
-      }, []);      
     return ( 
         <Context.Provider value={[state, dispatch]}>
             {children}
